@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>图片上传</title>
+    <link rel="stylesheet" href="css/upload.css">
+</head>
+<body>
+<h1>图片上传</h1>
+<span>注意：点击图片可以删除不需要上传的图片</span>
+<div>
+    <label for="file-upload" class="btn">点击选择图片</label>
+    <input type="file" id="file-upload" class="hidden" multiple>
+    <button id="upload-btn" class="btn hidden">确认上传</button>
+    <button id="clear-btn" class="btn">清空</button>
+    <button id="to-index" class="btn">返回首页</button>
+
+</div>
+<div id="preview"></div>
+<script>
+    const fileInput = document.getElementById('file-upload');
+    const uploadBtn = document.getElementById('upload-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const toIndex = document.getElementById('to-index');
+    const preview = document.getElementById('preview');
+
+    //点击清空按钮，清空预览图
+    clearBtn.addEventListener('click', () => {
+        fileInput.value = '';
+        uploadBtn.classList.add('hidden');
+        preview.innerHTML = '';
+    });
+
+    //点击返回首页按钮，跳转到首页
+    toIndex.addEventListener('click', () => {
+        window.location.href = 'index.php';
+    });
+
+    //限制文件上传的类型只能是图片
+    fileInput.addEventListener('change', (e) => {
+        const files = e.target.files;
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            if (!file.type.startsWith('image/')) {
+                alert('只能上传图片');
+                fileInput.value = '';
+                break;
+            }
+        }
+    });
+    //预览图片
+    fileInput.addEventListener('change', () => {
+        const files = fileInput.files;
+        preview.innerHTML = '';
+        uploadBtn.classList.remove('hidden');
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+            reader.onload = () => {
+                const image = new Image();
+                image.src = reader.result;
+                image.classList.add('preview-image');
+                preview.appendChild(image);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    //预览图有删除功能，点击图片即可删除
+    preview.addEventListener('click', (e) => {
+        if (e.target.classList.contains('preview-image')) {
+            e.target.remove();
+            //如果预览图为空，则隐藏上传按钮
+            if (preview.innerHTML === '') {
+                uploadBtn.classList.add('hidden');
+            }
+        }
+    });
+
+
+    // 上传图片,可以上传多张图片
+    uploadBtn.addEventListener('click', () => {
+        const files = fileInput.files;
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const formData = new FormData();
+            formData.append('file', file);
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'upload.php');
+            xhr.send(formData);
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    console.log('上传成功');
+                    fileInput.value = '';
+                    uploadBtn.classList.add('hidden');
+                    preview.innerHTML = '';
+                } else {
+                    console.log(xhr.responseText);
+                    console.log('上传失败');
+                }
+            };
+        }
+    });
+
+</script>
+</body>
+</html>

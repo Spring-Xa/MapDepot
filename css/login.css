@@ -1,0 +1,60 @@
+body {
+    background: linear-gradient(to bottom, #23a6d5, #23d5ab) no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.login-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+button[type="submit"] {
+    background-color: #23a6d5;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #23d5ab;
+}
+
+.extra-links a {
+    margin-right: 10px;
+    color: #23a6d5;
+    text-decoration: none;
+}
+
+.extra-links a:last-child {
+    margin-right: 0;
+}

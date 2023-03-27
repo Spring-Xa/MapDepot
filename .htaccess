@@ -1,0 +1,34 @@
+# 启用gzip压缩，减少传输数据量
+<IfModule mod_deflate.c>
+  # Set the compression level
+  SetOutputFilter DEFLATE
+  SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.(?:exe|t?gz|zip|bz2|sit|rar)$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.pdf$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.mp3$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.flv$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.swf$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.avi$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.rm$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.rmvb$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.mp4$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.wmv$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.wav$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.mov$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.3gp$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.mpe?g$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.txt$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.doc$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.xls$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.ppt$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.pdf$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.rar$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.zip$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.7z$ no-gzip dont-vary
+  SetEnvIfNoCase Request_URI \.tar$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \.gz$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \.bz2$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \.tar.gz$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \.tar.bz2$ no-gzip dont-vary
+    SetEnvIfNoCase Request_URI \.tar.xz$ no-gzip dont-vary
+</IfModule>
