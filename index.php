@@ -195,6 +195,10 @@
             imgs[i].style.borderRadius = '10px';
             //设置图片的阴影
             imgs[i].style.boxShadow = '0 0 10px #ccc';
+            //图片禁止拖拽
+            imgs[i].ondragstart = function () {
+                return false;
+            }
             //如果图片的宽高比大于1.5，则将图片的宽度设置为350px
             if (imgs[i].width / imgs[i].height > 1.5) {
                 imgs[i].style.width = '350px';
