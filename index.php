@@ -3,41 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>青锁图库</title>
+    <link rel="stylesheet" href="css/index.css">
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
 </head>
 <body>
 <h1>青锁图库</h1>
 <span>注：①若显示异常，请刷新页面！！！</span>
 <span>②未经授权，禁止转载！！！</span>
-<!--加载动画-->
-<div id="loading">
-    <!-- 加载中的过渡动画 -->
-    <div class="loading-animation">
-        <div class="loading-text">正在加载中，请稍后...</div>
-    </div>
-</div>
+<span>③若有侵权行为，请联系作者删除！！！</span>
 <!--图片分类-->
 <div class="category">
     <!--选择版式(横向或纵向)-->
     <div class="style">
         <span>选择版式：</span>
-        <input type="radio" name="style" value="horizontal" checked="checked">横向
-        <input type="radio" name="style" value="vertical">纵向
+        <label>
+            <input type="radio" name="style" value="all" checked="checked">全部
+        </label>
+        <label>
+            <input type="radio" name="style" value="horizontal">横向
+        </label>
+        <label>
+            <input type="radio" name="style" value="vertical">纵向
+        </label>
     </div>
     <!--选择分类-->
     <div class="type">
         <span>选择分类：</span>
-        <input type="radio" name="type" value="all" checked="checked">全部
-        <input type="radio" name="type" value="nature">自然
-        <input type="radio" name="type" value="animal">动物
-        <input type="radio" name="type" value="people">人物
-        <input type="radio" name="type" value="building">建筑
-        <input type="radio" name="type" value="food">食物
-        <input type="radio" name="type" value="other">其他
+        <label>
+            <input type="radio" name="type" value="all" checked="checked">全部
+        </label>
+        <label>
+            <input type="radio" name="type" value="nature">自然
+        </label>
+        <label>
+            <input type="radio" name="type" value="animal">动物
+        </label>
+        <label>
+            <input type="radio" name="type" value="people">人物
+        </label>
+        <label>
+            <input type="radio" name="type" value="building">建筑
+        </label>
+        <label>
+            <input type="radio" name="type" value="food">食物
+        </label>
+        <label>
+            <input type="radio" name="type" value="other">其他
+        </label>
     </div>
     <!--提交检索-->
     <div class="submit">
-        <input type="submit" value="检索">
+        <input class="submit_button" type="submit" value="检索">
+    </div>
+</div>
+<!--加载动画-->
+<div id="loading">
+    <!-- 加载中的过渡动画 -->
+    <div class="loading-animation">
+        <div class="loading-text">正在加载中，请稍后...</div>
     </div>
 </div>
 <!--图片预览-->
@@ -92,62 +115,6 @@
     <a href="https://beian.miit.gov.cn/" class="beian">黔ICP备2021007007号-3</a>
 </div>
 </body>
-<style>
-    body {
-        background-color: #f5f5f5;
-    }
-
-    h1 {
-        text-align: center;
-        font-size: 30px;
-        color: #333;
-    }
-
-    .category {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 10px;
-    }
-
-
-
-    /*分页*/
-    .page {
-        text-align: center;
-        margin-top: 5px;
-        border-radius: 5px;
-    }
-
-    .page a {
-        display: inline-block;
-        width: 60px;
-        height: 30px;
-        line-height: 30px;
-        text-align: center;
-        border: 1px solid #ccc;
-        margin: 0 5px;
-        color: #333;
-        text-decoration: none;
-    }
-
-    .page a:hover {
-        background-color: #ccc;
-    }
-
-    .loading-animation {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #f1f1f1;
-    }
-
-    .beian {
-        color: #333;
-        text-decoration: none;
-    }
-</style>
 <script>
     //将图片路径存入数组
     const images = <?php echo json_encode($images); ?>;
