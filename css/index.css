@@ -8,6 +8,11 @@ h1 {
     color: #333;
 }
 
+a {
+    color: #333;
+    text-decoration: none;
+}
+
 /*分类*/
 .category {
     display: flex;

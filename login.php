@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // 验证通过，存储管理员ID在会话中
             $_SESSION['admin_id'] = $row['id'];
             // 重定向到图片上传页面,提示用户登录成功
-            echo "<script>alert('登录成功！');location.href='upload.html';</script>";
+            echo "<script>alert('登录成功！');location.href='UserManage.php';</script>";
         } else {
             // 验证失败，显示错误消息,并重定向到登录页面
             echo "<script>alert('用户名或密码错误！');location.href='login.php';</script>";

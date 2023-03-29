@@ -8,6 +8,23 @@
 </head>
 <body>
 <h1>青锁图库</h1>
+<script>
+    //鼠标位于青锁图库标题上5秒，切换标题为青锁后台，再次位于标题上5秒，切换标题为青锁图库
+    const title = document.querySelector("h1");
+    let timer = null;
+    title.onmouseover = function () {
+        timer = setTimeout(function () {
+            title.innerHTML = "<a href='login.php'>青锁后台</a>";
+        }, 5000);
+    }
+    //鼠标移开5秒后，切换标题为青锁图库
+    title.onmouseout = function () {
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+            title.innerHTML = "青锁图库";
+        }, 5000);
+    }
+</script>
 <span>注：①若显示异常，请刷新页面！！！</span>
 <span>②未经授权，禁止转载！！！</span>
 <span>③若有侵权行为，请联系作者删除！！！</span>
@@ -111,7 +128,7 @@
     document.oncontextmenu = function () {
         return false;
     }
-    //整个页面禁止选择
+    // //整个页面禁止选择
     document.onselectstart = function () {
         return false;
     }
