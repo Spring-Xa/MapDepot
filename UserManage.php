@@ -24,7 +24,7 @@
     <!--系统信息-->
     <div class="nav-right-info">
         <ul>
-            <li class="nav-right-info-name">系统管理员</li>
+            <li class="nav-right-info-name"></li>
             <li>|</li>
             <li><a href="UserManage.php">退出</a></li>
         </ul>
@@ -91,5 +91,10 @@
     if (cookie === "") {
         window.location.href = "login.php";
     }
+    //从数据库中获取昵称
+    var name = "<?php echo $row['nickname']; ?>";
+    //显示昵称
+    var nameNode = document.getElementsByClassName("nav-right-info-name")[0];
+    nameNode.innerHTML = name;
 </script>
 </html>
