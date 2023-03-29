@@ -6,14 +6,6 @@ if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
     exit;
 }
 
-// 确保文件大小在合理范围内
-//$max_file_size = 1024 * 1024; // 1 MB
-//if ($_FILES['file']['size'] > $max_file_size) {
-//    header('HTTP/1.1 400 Bad Request');
-//    echo json_encode(['error' => '上传的文件太大了']);
-//    exit;
-//}
-
 // 确定上传的目录和文件名
 $upload_dir = 'uploads/';
 
@@ -50,14 +42,6 @@ if ($_FILES['file']['size'] > 1500000) {
         exit;
     }
 }
-
-
-//// 将上传的文件保存到指定目录
-//if (!move_uploaded_file($_FILES['file']['tmp_name'], $upload_file)) {
-//    header('HTTP/1.1 500 Internal Server Error');
-//    echo json_encode(['error' => '无法保存上传的文件']);
-//    exit;
-//}
 
 // 返回JSON格式的响应，指示上传结果
 echo json_encode([

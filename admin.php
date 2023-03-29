@@ -18,7 +18,7 @@
             <li>|</li>
             <li><a href="upload.html">上传</a></li>
             <li>|</li>
-            <li><a href="admin.html">管理</a></li>
+            <li><a href="admin.php">管理</a></li>
         </ul>
     </div>
     <!--系统信息-->
@@ -26,7 +26,7 @@
         <ul>
             <li class="nav-right-info-name">系统管理员</li>
             <li>|</li>
-            <li><a href="admin.html">退出</a></li>
+            <li><a href="admin.php">退出</a></li>
         </ul>
     </div>
 </div>
@@ -48,26 +48,32 @@
             <div class="main-right-user-content">
                 <table>
                     <tr>
+                        <th>序号</th>
                         <th>用户名</th>
                         <th>昵称</th>
                         <th>邮箱</th>
                         <th>注册时间</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
-                        <td>admin</td>
-                        <td>系统管理员</td>
-                        <td>charon_m@163.com</td>
-                        <td>2023-03-28</td>
-                        <td>
-                            <a href="#">
-                                <button>编辑</button>
-                            </a>
-                            <a href="#">
-                                <button>删除</button>
-                            </a>
-                        </td>
-                    </tr>
+                        <?php
+                        //导入数据库连接文件
+                        require 'includes/db_conn.php';
+                        //查询数据
+                        $sql = "SELECT * FROM `qingsuo_top`.admins";
+                        $result = $db_conn->query($sql);
+                        //遍历数据
+                        foreach ($result as $row) {
+                            echo "<tr>";
+                            echo "<td>" . $row['id'] . "</td>";
+                            echo "<td>" . $row['username'] . "</td>";
+                            echo "<td>" . $row['nickname'] . "</td>";
+                            echo "<td>" . $row['email'] . "</td>";
+                            echo "<td>" . $row['register_time'] . "</td>";
+                            echo "<td><a href=''><button>编辑</button></a></td>";
+                            echo "<td><a href=''><button>删除</button></a></td>";
+                            echo "</tr>";
+                        }
+                        ?>
                 </table>
             </div>
         </div>
@@ -89,30 +95,31 @@
                         <th>描述</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td><img src="images/1.jpg" alt="photo"></td>
-                        <td>1.jpg</td>
-                        <td>1.2M</td>
-                        <td>2023-03-28</td>
-                        <td>横向</td>
-                        <td>风景</td>
-                        <td>这是一张风景图片</td>
-                        <td>
-                            <a href="#">
-                                <button>编辑</button>
-                            </a>
-                            <a href="#">
-                                <button>删除</button>
-                            </a>
-                        </td>
-                    </tr>
+                    <?php
+                    $sql = "SELECT * FROM `qingsuo_top`.`images`";
+                    $result = $db_conn->query($sql);
+                    foreach ($result as $row) {
+                        echo "<tr>";
+                        echo "<td>" . $row['id'] . "</td>";
+                        echo "<td><img src='" . $row['url'] . "' alt=''></td>";
+                        echo "<td>" . $row['filename'] . "</td>";
+                        echo "<td>" . $row['filesize'] . "</td>";
+                        echo "<td>" . $row['upload_time'] . "</td>";
+                        echo "<td>" . $row['style'] . "</td>";
+                        echo "<td>" . $row['category'] . "</td>";
+                        echo "<td>" . $row['description'] . "</td>";
+                        echo "<td><a href=''><button>编辑</button></a></td>";
+                        echo "<td><a href=''><button>删除</button></a></td>";
+                        echo "</tr>";
+                    }
+                    ?>
                 </table>
             </div>
         </div>
         <!--日志管理-->
         <div class="main-right-logs">
             <h1>日志管理</h1>
+            <h3>敬请期待！</h3>
         </div>
     </div>
 </div>
@@ -123,6 +130,12 @@
 </div>
 </body>
 <script>
+    //从cookie中判断是否登录
+    var cookie = document.cookie;
+    if (cookie === "") {
+        window.location.href = "login.php";
+    }
+
     var user = document.getElementsByClassName("main-right-user")[0];
     var file = document.getElementsByClassName("main-right-file")[0];
     var logs = document.getElementsByClassName("main-right-logs")[0];
@@ -146,17 +159,6 @@
         user.style.display = "none";
         file.style.display = "none";
         logs.style.display = "block";
-    }
-
-    //从数据库中获取数据
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", "admin.php", true);
-    xmlhttp.send();
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-            var data = JSON.parse(xmlhttp.responseText);
-            console.log(data);
-        }
     }
 
 </script>

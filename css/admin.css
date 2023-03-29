@@ -155,6 +155,10 @@ body {
     border-collapse: collapse;
 }
 
+.main-right-file-content table tr td img {
+    height: 80px;
+}
+
 .main-right-file-content table tr {
     height: 49px;
     line-height: 49px;
