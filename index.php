@@ -84,7 +84,7 @@
     // 遍历数据库中的图片路径
     foreach ($result as $row) {
         // 将图片路径存入数组
-        $images[] = $row['filename'];
+        $images[] = $row['url'];
     }
 
     //计算总页数
