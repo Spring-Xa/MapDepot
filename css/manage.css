@@ -130,7 +130,6 @@ body {
 .main-right-file {
     width: 100%;
     height: 100%;
-    display: none;
     background-color: #f1f1f1;
 }
 
@@ -156,25 +155,49 @@ body {
 }
 
 .main-right-file-content table tr td img {
-    height: 80px;
+    height: 75px;
 }
 
 .main-right-file-content table tr {
     height: 49px;
     line-height: 49px;
     text-align: center;
-    border-bottom: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
 }
 
 .main-right-file-content table tr td {
     font-size: 20px;
     color: black;
+    border: 1px solid #ccc;
 }
+
+/*分页*/
+.main-right-file-content-page {
+    text-align: center;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.main-right-file-content-page a {
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #ccc;
+    margin: 0 5px;
+    color: #333;
+    text-decoration: none;
+}
+
+.main-right-file-content-page a:hover {
+    background-color: #ccc;
+}
+
 
 .main-right-logs {
     width: 100%;
     height: 100%;
-    display: none;
     background-color: #f1f1f1;
 }
 
