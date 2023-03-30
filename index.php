@@ -30,48 +30,47 @@
 <span>③若有侵权行为，请联系作者删除！！！</span>
 <!--图片分类-->
 <div class="category">
-    <!--选择版式(横向或纵向)-->
-    <div class="style">
-        <span>选择版式：</span>
-        <label>
-            <input type="radio" name="style" value="all" checked="checked">全部
-        </label>
-        <label>
-            <input type="radio" name="style" value="horizontal">横向
-        </label>
-        <label>
-            <input type="radio" name="style" value="vertical">纵向
-        </label>
-    </div>
-    <!--选择分类-->
-    <div class="type">
-        <span>选择分类：</span>
-        <label>
-            <input type="radio" name="type" value="all" checked="checked">全部
-        </label>
-        <label>
-            <input type="radio" name="type" value="nature">自然
-        </label>
-        <label>
-            <input type="radio" name="type" value="animal">动物
-        </label>
-        <label>
-            <input type="radio" name="type" value="people">人物
-        </label>
-        <label>
-            <input type="radio" name="type" value="building">建筑
-        </label>
-        <label>
-            <input type="radio" name="type" value="food">食物
-        </label>
-        <label>
-            <input type="radio" name="type" value="other">其他
-        </label>
-    </div>
-    <!--提交检索-->
-    <div class="submit">
-        <input class="submit_button" type="submit" value="检索">
-    </div>
+    <form action="index.php" method="get">
+        <fieldset>
+            <legend>筛选条件:</legend>
+            <label for="style">版式:</label>
+            <select id="style" name="style">
+                <option value="">--请选择--</option>
+                <option value="all">全部</option>
+                <option value="horizontal">横向</option>
+                <option value="vertical">纵向</option>
+            </select>
+            <label for="type">分类:</label>
+            <select id="type" name="type">
+                <option value="">--请选择--</option>
+                <option value="all">全部</option>
+                <option value="nature">自然</option>
+                <option value="animal">动物</option>
+                <option value="plant">植物</option>
+                <option value="food">食物</option>
+                <option value="building">建筑</option>
+                <option value="portrait">人物</option>
+                <option value="other">其他</option>
+            </select>
+            <input type="submit" value="筛选">
+            <input type="reset" value="重置">
+        </fieldset>
+    </form>
+    <script>
+        // 获取两个筛选器
+        const style = document.querySelector("#style");
+        const type = document.querySelector("#type");
+
+
+        // 为筛选器添加change事件，当筛选器的值发生改变时，将筛选器的值存起来
+        // style.onchange = function () {
+        //     localStorage.setItem("style", style.value);
+        // }
+        // type.onchange = function () {
+        //     localStorage.setItem("type", type.value);
+        // }
+
+    </script>
 </div>
 <!--加载动画-->
 <div id="loading">
@@ -91,13 +90,40 @@
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
     $pageSize = 8;
     $offset = ($page - 1) * $pageSize;
+    //获取版式
+    $style = isset($_GET['style']) ? $_GET['style'] : '';
+    //获取分类
+    $type = isset($_GET['type']) ? $_GET['type'] : '';
+    //判断是否有筛选条件
+    if ($style != '' && $type != '') {
+        //有筛选条件
+        if ($style == 'all' && $type == 'all') {
+            //版式为全部，分类为全部
+            $sql_count = "SELECT COUNT(*) FROM `qingsuo_top`.`images`";
+            $sql_img = "SELECT * FROM `qingsuo_top`.`images` LIMIT {$offset},{$pageSize}";
+        } elseif ($style == 'all' && $type != 'all') {
+            //版式为全部，分类不为全部
+            $sql_count = "SELECT COUNT(*) FROM `qingsuo_top`.`images` WHERE `type` = '{$type}'";
+            $sql_img = "SELECT * FROM `qingsuo_top`.`images` WHERE `type` = '{$type}' LIMIT {$offset},{$pageSize}";
+        } elseif ($style != 'all' && $type == 'all') {
+            //版式不为全部，分类为全部
+            $sql_count = "SELECT COUNT(*) FROM `qingsuo_top`.`images` WHERE `style` = '{$style}'";
+            $sql_img = "SELECT * FROM `qingsuo_top`.`images` WHERE `style` = '{$style}'LIMIT {$offset},{$pageSize}";
+        } else {
+            //版式不为全部，分类不为全部
+            $sql_count = "SELECT COUNT(*) FROM `qingsuo_top`.`images` WHERE `style` = '{$style}' AND `type` = '{$type}'";
+            $sql_img = "SELECT * FROM `qingsuo_top`.`images` WHERE `style` = '{$style}' AND `type` = '{$type}' LIMIT {$offset},{$pageSize}";
+        }
+    } else {
+        //无筛选条件
+        $sql_count = "SELECT COUNT(*) FROM `qingsuo_top`.`images`";
+        $sql_img = "SELECT * FROM `qingsuo_top`.`images` LIMIT {$offset},{$pageSize}";
+    }
     //查询总记录数
-    $sql = "SELECT COUNT(*) FROM `qingsuo_top`.`images`";
-    $result = $db_conn->query($sql);
+    $result = $db_conn->query($sql_count);
     $count = $result->fetchColumn();
     //查询当前页的数据
-    $sql = "SELECT * FROM `qingsuo_top`.`images` LIMIT {$offset},{$pageSize}";
-    $result = $db_conn->query($sql);
+    $result = $db_conn->query($sql_img);
     // 遍历数据库中的图片路径
     foreach ($result as $row) {
         // 将图片路径存入数组
@@ -136,7 +162,7 @@
     const body = document.querySelector('body');
     body.style.textAlign = 'center';
 
-    //页面加载
+    // 页面加载
     window.onload = function () {
         //获取加载动画
         const loading = document.getElementById('loading');
