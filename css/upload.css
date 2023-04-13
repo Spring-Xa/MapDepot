@@ -47,8 +47,12 @@ body {
 }
 
 .upload_table_preview {
-    margin-top: 10px;
     width: 100%;
+}
+
+.upload_tool {
+    width: 100%;
+    margin-top: 10px;
 }
 
 .upload_table_preview table{
@@ -62,6 +66,15 @@ body {
     color: white;
     padding: 10px;
     border: 1px solid #dddddd;
+}
+
+/*限制表格的行高*/
+.upload_table_preview table tr {
+    height: 50px;
+}
+
+.upload_table_preview table tr td img {
+    height: 50px;
 }
 
 .upload_table_preview table td {
