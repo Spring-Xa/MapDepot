@@ -35,14 +35,12 @@
             <legend>筛选条件:</legend>
             <label for="style">版式:</label>
             <select id="style" name="style">
-                <option value="">--请选择--</option>
                 <option value="all">全部</option>
                 <option value="horizontal">横向</option>
                 <option value="vertical">纵向</option>
             </select>
             <label for="type">分类:</label>
             <select id="type" name="type">
-                <option value="">--请选择--</option>
                 <option value="all">全部</option>
                 <option value="nature">自然</option>
                 <option value="animal">动物</option>
@@ -53,23 +51,14 @@
                 <option value="other">其他</option>
             </select>
             <input type="submit" value="筛选">
-            <input type="reset" value="重置">
         </fieldset>
     </form>
     <script>
-        // 获取两个筛选器
+        //筛选框保持上次选择的状态
         const style = document.querySelector("#style");
         const type = document.querySelector("#type");
-
-
-        // 为筛选器添加change事件，当筛选器的值发生改变时，将筛选器的值存起来
-        // style.onchange = function () {
-        //     localStorage.setItem("style", style.value);
-        // }
-        // type.onchange = function () {
-        //     localStorage.setItem("type", type.value);
-        // }
-
+        style.value = "<?php echo isset($_GET['style']) ? $_GET['style'] : 'all' ?>";
+        type.value = "<?php echo isset($_GET['type']) ? $_GET['type'] : 'all' ?>";
     </script>
 </div>
 <!--加载动画-->
@@ -92,8 +81,16 @@
     $offset = ($page - 1) * $pageSize;
     //获取版式
     $style = isset($_GET['style']) ? $_GET['style'] : '';
+    //若没有选择版式，则默认为全部
+    if ($style == '') {
+        $style = 'all';
+    }
     //获取分类
     $type = isset($_GET['type']) ? $_GET['type'] : '';
+    //若没有选择分类，则默认为全部
+    if ($type == '') {
+        $type = 'all';
+    }
     //判断是否有筛选条件
     if ($style != '' && $type != '') {
         //有筛选条件
@@ -129,7 +126,30 @@
         // 将图片路径存入数组
         $images[] = $row['url'];
     }
-    require 'includes/page.php';
+
+    //计算总页数
+    $pageCount = ceil($count / $pageSize);
+    echo "共{$count}条记录,共{$pageCount}页&ensp;";
+    echo "当前是第{$page}页";
+    echo "<br>";
+    //页数大于1时显示分页
+    if ($pageCount > 1) {
+        if ($page == 1) {
+            echo "<a href='?page=" . ($page + 1) . "&style=" . $style . "&type=" . $type . "'>下一页&ensp;</a>";
+            echo "<a href='?page=" . ($pageCount) . "&style=" . $style . "&type=" . $type . "'>尾页</a>";
+        } else if ($page == $pageCount) {
+            echo "<a href='?page=1" . "&style=" . $style . "&type=" . $type . "'>首页&ensp;</a>";
+            echo "<a href='?page=" . ($page - 1) . "&style=" . $style . "&type=" . $type . "'>上一页&ensp;</a>";
+        } else {
+            echo "<a href='?page=1" . "&style=" . $style . "&type=" . $type . "'>首页&ensp;</a>";
+            echo "<a href='?page=" . ($page - 1) . "&style=" . $style . "&type=" . $type . "'>上一页&ensp;</a>";
+            echo "<a href='?page=" . ($page + 1) . "&style=" . $style . "&type=" . $type . "'>下一页&ensp;</a>";
+            echo "<a href='?page=" . ($pageCount) . "&style=" . $style . "&type=" . $type . "'>尾页</a>";
+        }
+    }
+    //清空数组
+    $type = null;
+    $style = null;
     //关闭数据库连接
     $db_conn = null;
     ?>
