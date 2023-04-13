@@ -1,22 +1,72 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
+    margin: 0;
 }
 
-#preview {
+.top-nav {
+    height: 100px;
+    color: white;
+    background-color: #23a6d5;
+}
+
+.nav-logo {
+    float: left;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.nav-logo img {
+    width: 100px;
+    height: 100px;
+}
+
+.nav-title {
+    float: left;
+    margin: 0;
+    height: 100px;
+}
+
+.nav-title h1 {
+    margin: 0;
+    color: white;
+    padding: 25px 0 0 20px;
+}
+
+.nav-back {
+    float: right;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0 auto;
-    max-width: 1000px;
+    align-items: center;
+    margin: 0 40px 0 0;
+    height: 100px;
 }
 
-.preview-image {
-    display: block;
-    margin: 10px;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
+.nav-back span {
+    font: 20px Arial, sans-serif;
+}
+
+.upload_table_preview {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.upload_table_preview table{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.upload_table_preview table th {
+    background-color: #23a6d5;
+    color: white;
+    padding: 10px;
+    border: 1px solid #dddddd;
+}
+
+.upload_table_preview table td {
+    padding: 10px;
+    border: 1px solid #dddddd;
 }
 
 .hidden {
@@ -28,12 +78,12 @@ body {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #4CAF50;
+    background-color: #23a6d5;
     color: white;
     font-size: 16px;
     cursor: pointer;
 }
 
 .btn:hover {
-    background-color: #3e8e41;
+    background-color: #006c93;
 }
