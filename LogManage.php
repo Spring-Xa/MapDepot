@@ -5,6 +5,13 @@
     <title>青锁后台</title>
     <link rel="stylesheet" href="css/manage.css">
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <script>
+        //从cookie中判断是否登录
+        const cookie = document.cookie;
+        if (cookie === "") {
+            window.location.href = "login.php";
+        }
+    </script>
 </head>
 <body>
 <!--导航栏-->
@@ -53,11 +60,4 @@
     <a href="https://beian.miit.gov.cn/" class="beian">黔ICP备2021007007号-3</a>
 </div>
 </body>
-<script>
-    //从cookie中判断是否登录
-    var cookie = document.cookie;
-    if (cookie === "") {
-        window.location.href = "login.php";
-    }
-</script>
 </html>
