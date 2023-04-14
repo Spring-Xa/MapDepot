@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>图库登录页面</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<div class="login-container">
+    <h2>欢迎来到我的图库</h2>
+    <!--提交表单后，会跳转到login.php页面，然后在login.php页面中进行验证-->
+    <form action="do_login.php" method="post">
+        <label for="username">用户名</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">密码</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">登录</button>
+    </form>
+    <!--    <div class="extra-links">-->
+    <!--        <a href="#">忘记密码？</a>-->
+    <!--        <a href="#">注册</a>-->
+    <!--    </div>-->
+</div>
+</body>
+</html>

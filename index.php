@@ -14,7 +14,7 @@
     let timer = null;
     title.onmouseover = function () {
         timer = setTimeout(function () {
-            title.innerHTML = "<a href='login.php'>青锁后台</a>";
+            title.innerHTML = "<a href='UserManage.php'>青锁后台</a>";
         }, 5000);
     }
     //鼠标移开5秒后，切换标题为青锁图库

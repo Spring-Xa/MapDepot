@@ -5,6 +5,7 @@
     <title>青锁后台</title>
     <link rel="stylesheet" href="css/manage.css">
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <script src="js/manage.js"></script>
 </head>
 <body>
 <!--导航栏-->
@@ -86,11 +87,6 @@
 </div>
 </body>
 <script>
-    //从cookie中判断是否登录
-    var cookie = document.cookie;
-    if (cookie === "") {
-        window.location.href = "login.php";
-    }
     //从数据库中获取昵称
     var name = "<?php echo $row['nickname']; ?>";
     //显示昵称

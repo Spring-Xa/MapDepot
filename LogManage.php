@@ -5,13 +5,7 @@
     <title>青锁后台</title>
     <link rel="stylesheet" href="css/manage.css">
     <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
-    <script>
-        //从cookie中判断是否登录
-        const cookie = document.cookie;
-        if (cookie === "") {
-            window.location.href = "login.php";
-        }
-    </script>
+    <script src="js/manage.js"></script>
 </head>
 <body>
 <!--导航栏-->
