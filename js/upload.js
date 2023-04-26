@@ -11,6 +11,7 @@ window.onload = function () {
     upload.addEventListener('change', previewFile);
 };
 
+//预览图片
 function previewFile() {
     //获取input标签
     const preview = document.querySelector('input[type=file]');
@@ -30,29 +31,19 @@ function previewFile() {
         const fileSize = file.size;
         //获取文件类型
         const fileType = file.type;
-        //获取文件后缀
-        const fileSuffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         //判断文件类型
         if (fileType === "image/jpeg" || fileType === "image/png" || fileType === "image/gif") {
             //创建行
             const tr = document.createElement("tr");
-            //创建选择列
+            //创建列
             const td1 = document.createElement("td");
-            //创建序号列
             const td2 = document.createElement("td");
-            //创建图片列
             const td3 = document.createElement("td");
-            //创建标题列
             const td4 = document.createElement("td");
-            //创建描述列
             const td5 = document.createElement("td");
-            //创建大小列
             const td6 = document.createElement("td");
-            //创建版式列
             const td7 = document.createElement("td");
-            //创建分类列
             const td8 = document.createElement("td");
-            //创建操作列
             const td9 = document.createElement("td");
             //创建选择框
             const input1 = document.createElement("input");
@@ -88,7 +79,7 @@ function previewFile() {
             input1.setAttribute("class", "file");
             //设置序号的属性
             span1.setAttribute("class", "num");
-            span1.innerText = rows + i;
+            span1.innerText = (rows + i).toString();
             //设置图片的属性，预览图片，方便后期上传
             img.setAttribute("src", URL.createObjectURL(file));
             img.setAttribute("class", "preview");
@@ -252,8 +243,9 @@ function deleteImg() {
 
 //上传所选
 function uploadImg() {
-//将选中的图片上传
+    //将选中的图片上传
     const all = document.getElementsByClassName("file");
+    const files = document.querySelector('input[type="file"]').files;
     //若选中的图片数量为0，则不上传
     let count = 0;
     for (let i = 0; i < all.length; i++) {
@@ -268,48 +260,38 @@ function uploadImg() {
         for (let i = 0; i < all.length; i++) {
             if (all[i].checked) {
                 //上传所选图片
-                const img = document.getElementsByClassName("preview");
                 const filename = document.getElementsByClassName("filename");
                 const title = document.getElementsByClassName("title");
                 const description = document.getElementsByClassName("description");
                 const style = document.getElementsByClassName("style");
                 const type = document.getElementsByClassName("type");
                 const size = document.getElementsByClassName("size");
-                //获取blob对象
-                const file = img[i].src;
-                //获取图片的文件名
-                const fileName = filename[i].value;
-                //获取图片的标题
-                const fileTitle = title[i].value;
-                //获取图片的描述
-                const fileDescription = description[i].value;
-                //获取图片的版式
-                const fileStyle = style[i].value;
-                //获取图片的分类
-                const fileType = type[i].value;
-                //获取图片的大小
-                const fileSize = size[i].innerText;
+                //获取选中的图片
+                const file = files[i];
+                // const file = document.querySelector('input[type="file"]').files[0];
+                //创建FormData对象
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("fileName", filename[i].innerText);
+                formData.append("fileTitle", title[i].value);
+                formData.append("fileDescription", description[i].value);
+                formData.append("fileStyle", style[i].value);
+                formData.append("fileType", type[i].value);
+                formData.append("fileSize", size[i].innerText);
                 //将其提交到do_upload.php
                 const xhr = new XMLHttpRequest();
                 xhr.open("POST", "do_upload.php", true);
-                xhr.setRequestHeader("Content-Type", "multipart/form-data");
-                xhr.send(JSON.stringify({
-                    file: file,
-                    fileName: fileName,
-                    fileTitle:fileTitle,
-                    fileDescription: fileDescription,
-                    fileStyle: fileStyle,
-                    fileType: fileType,
-                    fileSize: fileSize
-                }));
+                xhr.send(formData);
+                //判断是否上传成功
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
-                        const result = xhr.responseText;
-                        console.info(result)
-                        if (result === "1") {
-                            alert("上传成功！");
-                        } else {
-                            alert("上传失败！");
+                        console.log(xhr.responseText);
+                        //将上传成功的图片从页面中删除
+                        all[i].parentNode.parentNode.remove();
+                        //序号重新排序
+                        const num = document.getElementsByClassName("num");
+                        for (let j = i; j < num.length; j++) {
+                            num[j].innerText = j + 1;
                         }
                     }
                 }
