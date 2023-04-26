@@ -280,20 +280,21 @@ function uploadImg() {
                 formData.append("fileSize", size[i].innerText);
                 //将其提交到do_upload.php
                 const xhr = new XMLHttpRequest();
-                xhr.open("POST", "do_upload.php", true);
+                xhr.open("POST", "do_upload.php", false);
                 xhr.send(formData);
                 //判断是否上传成功
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        console.log(xhr.responseText);
-                        //将上传成功的图片从页面中删除
-                        all[i].parentNode.parentNode.remove();
-                        //序号重新排序
-                        const num = document.getElementsByClassName("num");
-                        for (let j = i; j < num.length; j++) {
-                            num[j].innerText = j + 1;
-                        }
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    console.log("上传成功！");
+                    //将上传成功的图片从页面中删除
+                    all[i].parentNode.parentNode.remove();
+                    //序号重新排序
+                    const num = document.getElementsByClassName("num");
+                    for (let j = i; j < num.length; j++) {
+                        num[j].innerText = j + 1;
                     }
+                    //序号减一
+                    i--;
                 }
             }
         }
