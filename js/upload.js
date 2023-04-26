@@ -286,16 +286,10 @@ function uploadImg() {
                 if (xhr.status === 200) {
                     console.log(xhr.responseText);
                     console.log("上传成功！");
-                    //将上传成功的图片从页面中删除
-                    all[i].parentNode.parentNode.remove();
-                    //序号重新排序
-                    const num = document.getElementsByClassName("num");
-                    for (let j = i; j < num.length; j++) {
-                        num[j].innerText = j + 1;
-                    }
-                    //序号减一
-                    i--;
+                } else {
+                    console.log("上传失败！");
                 }
+
             }
         }
     }
